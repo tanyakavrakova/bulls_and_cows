@@ -1,0 +1,24 @@
+<h2>Game:<%= @game.name %></h2>
+
+<table class="table">
+  <thead>
+    <%= ReactPhoenix.ClientSide.react_component("Components.Playground", %{id: 1, gameName: @game.name, playerNumber: @game.number, player2Name: @game.player2.name, playerGuesses: @playerGuesses, player: @player}) %>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @game.number %></td>
+
+      <td class="text-right">
+        <p>
+          <%= form_tag("/guess_number") do
+            [tag(:input, type: "hidden", value: @player, name: "player"),
+            tag(:input, type: "hidden", value: @game.number, name: "number"),
+            tag(:input, type: "hidden", value: @game.name, name: "game_name"),
+            tag(:input, type: "text", name: "suggestion"),
+            tag(:input, type: "submit", value: "Guess number")]
+          end%>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

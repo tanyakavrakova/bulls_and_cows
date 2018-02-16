@@ -1,0 +1,4 @@
+#, elixir-format
+#: lib/bulls_and_cows/counter.ex:12
+msgid "Invalid input"
+msgstr ""

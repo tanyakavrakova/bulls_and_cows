@@ -1,0 +1,26 @@
+<h2>Game with <%= @game.name %></h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @game.number %></td>
+
+      <td class="text-right">
+        <p>
+          <%= form_tag("/choose_number") do
+            [tag(:input, type: "hidden", value: @player, name: "player"),
+            tag(:input, type: "hidden", value: @game.name, name: "game_name"),
+            tag(:input, type: "text", name: "number"),
+            tag(:input, type: "submit", value: "Choose number")]
+          end%>
+      </td>
+    </tr>
+  </tbody>
+</table>

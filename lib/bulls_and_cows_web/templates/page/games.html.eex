@@ -1,0 +1,28 @@
+<h2>Listing Games</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for game <- @games do %>
+    <tr>
+      <td><%= game %></td>
+
+      <td class="text-right">
+        <p>
+          <%= form_tag("/join") do
+            [tag(:input, type: "hidden", value: game, name: "game_name"),
+            tag(:input, type: "text", name: "player_name"),
+            tag(:input, type: "submit", value: "Join Game")]
+          end%>
+        </p>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
