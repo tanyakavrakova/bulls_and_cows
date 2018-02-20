@@ -4,6 +4,5 @@
       [tag(:input, type: "text", name: "name"),
       tag(:input, type: "submit", value: "New Game")]
     end%>
-    <%= ReactPhoenix.ClientSide.react_component("Components.Publisher", %{id: 1, name: "elixir", code: 5}) %> 
   </p>
 </div>

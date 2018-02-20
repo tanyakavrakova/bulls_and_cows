@@ -21,10 +21,8 @@ import "phoenix_html"
 import socket from "./socket"
 import "react-phoenix"
 
-import Publisher from "./components/Publisher"
 import Playground from "./components/Playground"
 
 window.Components = {
-  Publisher,
   Playground
 }
