@@ -35,7 +35,19 @@ defmodule BullsAndCows.Game do
 
   defp reply_success(state_data, reply) do
     # :dets.insert(:game_state, {state_data.player1.name, state_data})
+    :ets.insert(:game_state, {state_data.player1.name, state_data})
     {:reply, {reply, state_data}, state_data}
+  end
+
+  def handle_info({:set_state, name}, _state_data) do
+    state_data =
+      case :ets.lookup(:game_state, name) do
+        [] -> fresh_state(name)
+        [{_key, state}] -> state
+      end
+
+    :ets.insert(:game_state, {name, state_data})
+    {:noreply, state_data, @timeout}
   end
 
   def handle_call({:add_player, name}, _from, state_data) do
