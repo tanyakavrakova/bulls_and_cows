@@ -54,45 +54,10 @@ let socket = new Socket("/socket", {})
 
 socket.connect()
 
-//function new_channel(subtopic, screen_name) {
-//  return socket.channel("game:" + subtopic, {screen_name: screen_name});
-//}
-
-//var game_channel = new_channel("moon", "moon")
-//function join(channel) {
-//  channel.join()
-//    .receive("ok", response => {
-//      console.log("Joined successfully!", response)
-//    })
-//  .receive("error", response => {
-//    console.log("Unable to join", response)
-//  })
-//}
-//join(game_channel)
-
   // Now that you are connected, you can join channels with a topic:
 //let channel = socket.channel("topic:subtopic", {})
 //channel.join()
 //  .receive("ok", resp => { console.log("Joined successfully", resp) })
 //  .receive("error", resp => { console.log("Unable to join", resp) })
 
-//function leave(channel) {
-//  channel.leave()
-//    .receive("ok", response => {
-//      console.log("Left successfully", response)
-//    })
-//  .receive("error", response => {
-//    console.log("Unable to leave", response)
-//  })
-//}
-
-
-//#window.App = {
-//#  new_game: new_game,
-//#  add_player: add_player,
-//#  game_channel: game_channel,
-//#  socket: socket,
-//#  say_hello: say_hello,
-//#  join: join
-//#}
 export default socket
