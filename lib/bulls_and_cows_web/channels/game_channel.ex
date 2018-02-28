@@ -8,23 +8,6 @@ defmodule BullsAndCowsWeb.GameChannel do
     {:ok, socket}
   end
 
-  # def handle_in("hello", payload, socket) do
-  #  {:reply, {:ok, payload}, socket}
-  # end
-  # def handle_in("hello", payload, socket) do
-  #  push socket, "said_hello", payload
-  #  {:noreply, socket}
-  # end
-
-  # def handle_in("hello", payload, socket) do
-  #  {:reply, {:ok, payload}, socket}
-  # end
-
-  def handle_in("hello", payload, socket) do
-    broadcast!(socket, "said_hello", payload)
-    {:noreply, socket}
-  end
-
   def handle_in("new_game", _payload, socket) do
     "game:" <> player = socket.topic
 
@@ -38,11 +21,6 @@ defmodule BullsAndCowsWeb.GameChannel do
   end
 
   def handle_in("add_player", player, socket) do
-    #  with {:ok, state_data} <- Game.add_player(via(socket.topic), player) do
-    #    
-    #    broadcast! socket, "player_added", %{message:
-    #      "New player just joined: " <> player, player2Name: player}
-    #    {:noreply, socket}
     case Game.add_player(via(socket.topic), player) do
       {:ok, state_data} ->
         broadcast!(socket, "player_added", %{
@@ -58,6 +36,24 @@ defmodule BullsAndCowsWeb.GameChannel do
       :error ->
         {:reply, :error, socket}
     end
+  end
+
+  def handle_in(
+        "provide_suggestion",
+        %{"game_name" => game_name, "player" => player, "suggestion" => suggestion},
+        socket
+      ) do
+    game_pid = GenServer.whereis(BullsAndCows.Game.via_tuple(game_name))
+
+    {:ok, state_data} =
+      BullsAndCows.Game.guess_number(game_pid, String.to_atom(player), suggestion)
+
+    broadcast(socket, "guesses_updated", %{
+      player: player,
+      playerGuesses: Map.get(state_data, String.to_atom(player)).guesses
+    })
+
+    {:noreply, socket}
   end
 
   defp via("game:" <> player), do: Game.via_tuple(player)
