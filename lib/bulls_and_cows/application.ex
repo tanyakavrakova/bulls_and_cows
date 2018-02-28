@@ -9,6 +9,7 @@ defmodule BullsAndCows.Application do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the endpoint when the application starts
+      supervisor(BullsAndCows.Repo, []),
       supervisor(BullsAndCowsWeb.Endpoint, []),
       # {Registry, keys: :unique, name: Registry.Game},
       supervisor(BullsAndCowsWeb.Presence, []),

@@ -1,7 +1,10 @@
 defmodule BullsAndCowsWeb.PageController do
   use BullsAndCowsWeb, :controller
 
+  import BullsAndCowsWeb.Authorize
   alias BullsAndCows.GameSupervisor
+
+  plug(:user_check when action in [:create_game])
 
   def index(conn, _params) do
     render(conn, "index.html")

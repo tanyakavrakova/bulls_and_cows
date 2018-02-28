@@ -11,8 +11,14 @@ config :bulls_and_cows, BullsAndCowsWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  watchers: [
+    node: [
+      "node_modules/brunch/bin/brunch",
+      "watch",
+      "--stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # ## SSL Support
 #
@@ -47,3 +53,12 @@ config :logger, :console, format: "[$level] $message\n"
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Configure your database
+config :bulls_and_cows, BullsAndCows.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "tad",
+  database: "bulls_and_cows_dev",
+  hostname: "localhost",
+  pool_size: 10
