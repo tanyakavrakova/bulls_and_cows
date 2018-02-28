@@ -12,6 +12,7 @@ class Playground extends Component {
     this.playerGuesses = props.playerGuesses;
     this.player = props.player;
     console.log("Player is " + props.player)
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   updateName(newName) {
@@ -26,27 +27,11 @@ class Playground extends Component {
     let channelName = "game:" + this.gameName;
 
     let channel = socket.channel(channelName , {});
+    this.channel = channel;
 
-    console.log("Playground logging: " + channelName);
-
-    channel.join()
-      .receive("ok", response => { console.log("React Success Playground", response) })
+    channel.join();
     
-    channel.on("said_hello", response => {
-      console.log("reacr said hello", response);
-      console.log(this.name);
-      this.name = "HELLO";
-      this.updateName(response.message);
-      console.log(this);
-      this.setState({name: this.name, code: this.code, id: this.id});
-    })
-
     channel.on("player_added", response => {
-      console.log("React player added");
-      console.log(response);
-      console.log(response.player2Name);
-      console.log(this);
-      console.log(this.gameName);
       this.player2Name = response.player2Name;
       this.setState({gameName: this.gameName, playerNumber: this.playerNumber, player2Name: response.player2Name, id: this.id});
     });
@@ -55,6 +40,10 @@ class Playground extends Component {
       this.playerGuesses = response.playerGuesses;
       this.setState({gameName: this.gameName, playerNumber: this.playerNumber, player2Name: this.player2Name, id: this.id, playerGuesses: this.playerGuesses});
     });
+  }
+
+  handleInputChange(event) {
+    this.channel.push("provide_suggestion", {"game_name": this.gameName, "player": this.player, "suggestion": this.suggestionInput.value})
   }
 
   render() {
@@ -66,8 +55,22 @@ class Playground extends Component {
         <div>Suggestion | Result</div>
           {this.playerGuesses.map(guess => {
             return (
-              <div>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
+              <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
             )})}
+          <form>
+            <label>
+              Suggestion:
+              <input
+                name="suggestion"
+                type="text"
+                ref={(input) => { this.suggestionInput = input; }} />
+              <input
+                type="button"
+                value="Guess number"
+                onClick={this.handleInputChange} />
+            </label>
+          </form>
+        <br />
       </div>
   )}}
 
