@@ -54,17 +54,25 @@ class Playground extends Component {
         <div><a>Player1: {this.gameName}</a>  | Player2: {this.player2Name} </div>
         <div>Your number is: {this.playerNumber}</div>
         <div>You are {this.player}</div>
-        <div>Player1: Suggestion | Result</div>
-          {this.player1Guesses.map(guess => {
-            return (
-              <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
-            )})}
-        <div>Player2: Suggestion | Result</div>
-          {this.player2Guesses.map(guess => {
-            return (
-              <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
-            )})}
-          <form>
+        <div className="row">
+          <div className="col-sm-4">
+            <div>Player1: Suggestion | Result</div>
+              {this.player1Guesses.map(guess => {
+                return (
+                  <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
+                )
+              })}
+            </div>
+          <div className="col-sm-4">
+          <div>Player2: Suggestion | Result</div>
+            {this.player2Guesses.map(guess => {
+              return (
+                <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
+              )
+            })}
+          </div>
+        </div>
+        <form>
             <label>
               Suggestion:
               <input
@@ -76,7 +84,7 @@ class Playground extends Component {
                 value="Guess number"
                 onClick={this.handleInputChange} />
             </label>
-          </form>
+        </form>
         <br />
       </div>
   )}}
