@@ -51,20 +51,24 @@ class Playground extends Component {
   render() {
     return (
       <div>
-        <div><a>Player1: {this.gameName}</a>  | Player2: {this.player2Name} </div>
-        <div>Your number is: {this.playerNumber}</div>
         <div>You are {this.player}</div>
+        <div>Your number is: {this.playerNumber}</div>
+        <br />
         <div className="row">
-          <div className="col-sm-4">
-            <div>Player1: Suggestion | Result</div>
+          <div className="col-sm-6">
+            <div>Player1</div>
+            <div>Name: {this.gameName}</div>
+            <div>Suggestion | Result</div>
               {this.player1Guesses.map(guess => {
                 return (
                   <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
                 )
               })}
             </div>
-          <div className="col-sm-4">
-          <div>Player2: Suggestion | Result</div>
+          <div className="col-sm-6">
+          <div>Player2</div>
+          <div>Name: {this.player2Name} </div>
+          <div>Suggestion | Result</div>
             {this.player2Guesses.map(guess => {
               return (
                 <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
@@ -74,10 +78,10 @@ class Playground extends Component {
         </div>
         <form>
             <label>
-              Suggestion:
               <input
                 name="suggestion"
                 type="text"
+                placeholder="suggestion"
                 ref={(input) => { this.suggestionInput = input; }} />
               <input
                 type="button"
