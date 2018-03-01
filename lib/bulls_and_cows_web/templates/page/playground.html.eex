@@ -2,7 +2,7 @@
 
 <table class="table">
   <thead>
-    <%= ReactPhoenix.ClientSide.react_component("Components.Playground", %{id: 1, gameName: @game.name, playerNumber: @game.number, player2Name: @game.player2.name, playerGuesses: @playerGuesses, player: @player}) %>
+    <%= ReactPhoenix.ClientSide.react_component("Components.Playground", %{id: 1, gameName: @game.name, playerNumber: @game.number, player2Name: @game.player2.name, player1Guesses: @player1Guesses, player2Guesses: @player2Guesses, player: @player}) %>
   </thead>
   <tbody>
   </tbody>

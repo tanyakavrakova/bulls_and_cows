@@ -9,7 +9,8 @@ class Playground extends Component {
     this.gameName = props.gameName;
     this.playerNumber = props.playerNumber;
     this.player2Name = props.player2Name;
-    this.playerGuesses = props.playerGuesses;
+    this.player1Guesses = props.player1Guesses;
+    this.player2Guesses = props.player2Guesses;
     this.player = props.player;
     console.log("Player is " + props.player)
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,8 +38,9 @@ class Playground extends Component {
     });
 
     channel.on("guesses_updated", response => {
-      this.playerGuesses = response.playerGuesses;
-      this.setState({gameName: this.gameName, playerNumber: this.playerNumber, player2Name: this.player2Name, id: this.id, playerGuesses: this.playerGuesses});
+      this.player1Guesses = response.player1Guesses;
+      this.player2Guesses = response.player2Guesses;
+      this.setState({gameName: this.gameName, playerNumber: this.playerNumber, player2Name: this.player2Name, id: this.id, player1Guesses: this.player1Guesses, player2Guesses: this.player2Guesses});
     });
   }
 
@@ -52,8 +54,13 @@ class Playground extends Component {
         <div><a>Player1: {this.gameName}</a>  | Player2: {this.player2Name} </div>
         <div>Your number is: {this.playerNumber}</div>
         <div>You are {this.player}</div>
-        <div>Suggestion | Result</div>
-          {this.playerGuesses.map(guess => {
+        <div>Player1: Suggestion | Result</div>
+          {this.player1Guesses.map(guess => {
+            return (
+              <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
+            )})}
+        <div>Player2: Suggestion | Result</div>
+          {this.player2Guesses.map(guess => {
             return (
               <div key={guess.suggestion}>Suggestion: {guess.suggestion} | Bulls: {guess.result.bulls} | Cows:{guess.result.cows}</div>
             )})}

@@ -50,7 +50,8 @@ defmodule BullsAndCowsWeb.GameChannel do
 
     broadcast(socket, "guesses_updated", %{
       player: player,
-      playerGuesses: Map.get(state_data, String.to_atom(player)).guesses
+      player1Guesses: Map.get(state_data, :player1).guesses,
+      player2Guesses: Map.get(state_data, :player2).guesses
     })
 
     {:noreply, socket}

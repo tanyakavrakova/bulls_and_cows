@@ -36,7 +36,8 @@ defmodule BullsAndCowsWeb.PageController do
       "playground.html",
       game: %{name: game_name, number: number, player2: %{name: state_data.player2.name}},
       player: player,
-      playerGuesses: Map.get(state_data, String.to_atom(player)).guesses
+      player1Guesses: Map.get(state_data, :player1).guesses,
+      player2Guesses: Map.get(state_data, :player2).guesses
     )
   end
 
@@ -67,7 +68,8 @@ defmodule BullsAndCowsWeb.PageController do
 
     BullsAndCowsWeb.Endpoint.broadcast("game:" <> game_name, "guesses_updated", %{
       player: player,
-      playerGuesses: Map.get(state_data, String.to_atom(player)).guesses
+      player1Guesses: Map.get(state_data, :player1).guesses,
+      player2Guesses: Map.get(state_data, :player2).guesses
     })
 
     conn
@@ -75,7 +77,8 @@ defmodule BullsAndCowsWeb.PageController do
       "playground.html",
       game: %{name: game_name, number: number, player2: %{name: state_data.player2.name}},
       player: player,
-      playerGuesses: Map.get(state_data, String.to_atom(player)).guesses
+      player1Guesses: Map.get(state_data, :player1).guesses,
+      player2Guesses: Map.get(state_data, :player2).guesses
     )
   end
 end
